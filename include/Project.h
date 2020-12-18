@@ -1,7 +1,10 @@
 #ifndef _PROJECT_H_
 #define _PROJECT_H_
 #include <stdio.h>
-
+#include <stdio.h>
+#include <malloc.h>
+#include <stdbool.h>
+#define BUFFSIZE 2
 typedef struct huffmanTreeNode{
   char letter;
   int weight;
@@ -16,15 +19,18 @@ typedef struct {
 }Heap,*minHeap;
 
 
-void FileRead(const char *file,char *buff);
-void Encode(HTNode tree[],char *huffCode[],int n);
-void Decode(char huffCode[],FILE *fp);
-void WeightInput(char buff[],int *freq[],char *lett[]);
-void insert(minHeap H,HTNodep hTree);
+int FileRead(const char *file,char **buff);
+void Code(HTNode tree[],char *huffCode[],int n);
+void Uncode(char huffCode[],FILE *fp);
+int WeightInput(char buff[],int *freq,char *lett);
+bool insert(minHeap H,HTNodep hTree);
+bool IsFull(minHeap H);
+bool IsEmpty(minHeap H);
 HTNodep buildTree(int max,int freq[],char lett[]);
-HTNodep deleteHeap(minHeap H);
-minHeap sortHeap(minHeap H);
-minHeap buildMinHeap(int max,int freq[],char lett[]);
+HTNodep DeleteMin(minHeap H);
+HTNodep NewHuffmanNode();
+minHeap CreateMinHeap(int MaxSize);
+minHeap buildMinHeap(minHeap H);
 
 
 #endif
